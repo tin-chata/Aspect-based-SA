@@ -203,7 +203,6 @@ class Csvfile(object):
         return sent_rep, asp_rep
 
 
-
 class seqPAD:
     @staticmethod
     def _pad_sequences(sequences, pad_tok, max_length):

@@ -7,11 +7,11 @@ Created on Wed Mar 28 03:38:32 2018
 """
 import re
 import torch
-import csv
+# import csv
 import random
 import argparse
 import numpy as np
-from collections import Counter
+# from collections import Counter
 from model import Classifier
 from utils.other_utils import SaveloadHP
 
@@ -73,7 +73,7 @@ input> wth is it????""")
         sent_rep = sentence.replace(aspect, asp_rep)
 
         label_prob, label_pred = classifier.predict(sent_rep, asp_rep, len(i2l))
-        print("\t[SA_PREDICTION] Polarity score of aspect '%s' is %f" % (aspect, 1-label_prob.item()))
+        print("\t[SA_PREDICTION] Polarity score of '%s' is %f" % (aspect, label_prob.item()))
 
 
 if __name__ == '__main__':
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     
     argparser.add_argument("--use_cuda", action='store_true', default=False, help="GPUs Flag (default False)")
         
-    argparser.add_argument('--model_args', help='Args file', default="./results/sf_distlstm_v3_pp.args", type=str)
+    argparser.add_argument('--model_args', help='Args file', default="./results/booking_lstm_v4_ps.args", type=str)
     
     args = argparser.parse_args()
         

@@ -21,6 +21,5 @@ if __name__ == "__main__":
 
     # rfile = "/media/data/hotels/kdd11/processed/extracted_sent/kdd11_all_sents.txt"
     # wfile = "/media/data/hotels/kdd11/processed/extracted_tag/tag_count_dict.pkl"
-
     sNLP = StanfordNLP()
     pos_dict, pos_count = count_tags(args.wfile, args.rfile, sNLP)

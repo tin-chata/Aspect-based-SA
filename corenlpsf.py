@@ -166,12 +166,12 @@ def extract_nn(sent, sNLP=StanfordNLP()):
     cur = []
     s, t = zip(*pos)
     for i in range(len(pos)-1):
-        if t[i] in ["NN", "NNS", "NNP", "NNPS", "FW"]:
+        if t[i] in ["NN", "NNS", "NNP", "NNPS"]:
             cur += [s[i]]
-            if t[i + 1] not in ["NN", "NNS", "NNP", "NNPS", "FW"]:
+            if t[i + 1] not in ["NN", "NNS", "NNP", "NNPS"]:
                 nps.append(" ".join(cur))
                 cur = []
-    if t[-1] in ["NN", "NNS", "NNP", "NNPS", "FW"]:
+    if t[-1] in ["NN", "NNS", "NNP", "NNPS"]:
         cur += [s[-1]]
     if len(cur) != 0:
         nps.append(" ".join(cur))
@@ -194,7 +194,7 @@ if __name__ == '__main__':
     """
     java --add-modules java.se.ee -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
     """
-    sNLP = StanfordNLP()
+    sNLP = StanfordNLP(port=8000)
 
 
 

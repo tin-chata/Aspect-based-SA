@@ -78,7 +78,7 @@ def extract_data(aspects, label, read_file, write_file, cwrite_file, sNLP):
                                             for lex in pos_lex:
                                                 if label == "negative" and (re.search(r"\b%s\b" % lex, sent)):
                                                     flag = True
-                                                    continue
+                                                    break
                                             if flag:
                                                 continue
                                             writer.writerow([sent_rep, asp_rep, label])
@@ -115,7 +115,7 @@ if __name__ == "__main__":
 
     argparser.add_argument('--topap', help='top n aspects', default=-1, type=int)
 
-    argparser.add_argument('--port', help='top n aspects', default=9000, type=int)
+    argparser.add_argument('--port', help='port number', default=9000, type=int)
 
     args = argparser.parse_args()
 

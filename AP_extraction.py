@@ -2,6 +2,7 @@
 Created on 2018-10-03
 @author: duytinvo
 """
+import re
 from collections import Counter
 from sklearn.externals import joblib
 from process_data import write_csv_lines
@@ -161,38 +162,60 @@ interest_anpos = [("('NN', 'VBD', 'JJ', '.')", (0, 2)),                 # nothin
 def location(tokens, loc):
     d = []
     if type(loc) is tuple:
-        tok = [wd for wd in tokens[loc[0]:loc[1]+1] if wd.isalnum()]
+        tok = [wd for wd in tokens[loc[0]:loc[1]+1] if re.sub(r'[^0-9a-zA-Z ]+', '', wd).isalnum()]
+        # tok = [wd for wd in tokens[loc[0]:loc[1] + 1]]
         if len(tok) > 0:
             d.append(" ".join(tok))
     elif type(loc) is list:
-        tok = [tokens[l] for l in loc if tokens[l].isalnum()]
+        tok = [tokens[l] for l in loc if re.sub(r'[^0-9a-zA-Z ]+', '', tokens[l]).isalnum()]
+        # tok = [tokens[l] for l in loc]
         if len(tok) > 0:
             d.extend(tok)
     else:
-        if tokens[loc].isalnum():
+        if re.sub(r'[^0-9a-zA-Z ]+', '', tokens[loc]).isalnum():
             d.append(tokens[loc])
+        # d.append(tokens[loc])
     return d
 
 
-def extract_jj_nn(interest_anpos, pos_dict):
+def extract_jj_nn(interest_anpos, tag_dict):
     noun_dict = Counter()
     adj_dict = Counter()
     for anpos in interest_anpos:
         pos, loc = anpos
         nloc, aloc = loc
-        for sent in pos_dict[pos]:
+        for sent in tag_dict[pos]:
             tokens = sent[0].lower().split()
-            if "complaints" in sent:
-                print(sent)
             noun_dict.update(location(tokens, nloc))
             adj_dict.update(location(tokens, aloc))
 
-    strip_wds = ["everything", "everythings", "nothing", "nothing everything", "thing", "things", "lot", "day", "b", "all",
-                 "others", "staff at", "anything", "evrything", "hour", "part", "fun", "mess", "else", "bit", "night",
-                 "super", "way", "none", "wife", "pretty", "dislike", "complaints", "complaint", "everyone", "time", "joke"]
+    for anpos in noisy_anpos:
+        pos, loc = anpos
+        nloc, aloc = loc
+        for sent in tag_dict[pos]:
+            tokens = sent[0].lower().split()
+            noun_dict.update(location(tokens, nloc))
+            adj_dict.update(location(tokens, aloc))
+
+    for apos in noisy_apos:
+        pos, aloc = apos
+        for sent in tag_dict[pos]:
+            tokens = sent[0].lower().split()
+            adj_dict.update(location(tokens, aloc))
+
+    for npos in noisy_npos:
+        pos, nloc = npos
+        for sent in tag_dict[pos]:
+            tokens = sent[0].lower().split()
+            noun_dict.update(location(tokens, nloc))
+
+    strip_wds = ["everything", "everythings", "nothing", "nothing everything", "thing", "things", "lot", "day", "all",
+                 "others", "anything", "evrything", "hour", "part", "fun", "mess", "else", "bit", "night", "b", "way",
+                 "super", "none", "wife", "pretty", "dislike", "complaints", "complaint", "everyone", "time", "joke"]
+    # strip_wds = []
     for wd in strip_wds:
         noun_dict.pop(wd)
-    write_csv_lines("/media/data/booking_v2/processed/extracted_tag/tag_aspects.csv", noun_dict.most_common())
+    write_csv_lines("/media/data/hotels/booking_v2/processed/extracted_tag/tag_aspects2.csv", noun_dict.most_common())
     return noun_dict, adj_dict
 
 
