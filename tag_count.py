@@ -17,9 +17,11 @@ if __name__ == "__main__":
                            default="/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict.pkl",
                            type=str)
 
+    argparser.add_argument('--port', help='port number', default=8000, type=int)
+
     args = argparser.parse_args()
 
     # rfile = "/media/data/hotels/kdd11/processed/extracted_sent/kdd11_all_sents.txt"
     # wfile = "/media/data/hotels/kdd11/processed/extracted_tag/tag_count_dict.pkl"
-    sNLP = StanfordNLP()
+    sNLP = StanfordNLP(port=args.port)
     pos_dict, pos_count = count_tags(args.wfile, args.rfile, sNLP)

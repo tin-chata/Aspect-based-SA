@@ -19,11 +19,11 @@ def review_url(hotel_link):
     return reviews_link
 
 
-def review_rp(hotel_link):
-    return hotel_link.split("?")[0].replace("/hotel/ca/", "/reviews/ca/hotel/")
+def review_rp(hotel_link, ccode="ca"):
+    return hotel_link.split("?")[0].replace("/hotel/%s/" % ccode, "/reviews/%s/hotel/" % ccode)
 
 
-def url1page(region_link, booking_link):
+def url1page(region_link, booking_link, ccode="ca"):
     result = requests.get(region_link)
     content = result.content
     soup = BeautifulSoup(content, "html.parser")
@@ -37,7 +37,7 @@ def url1page(region_link, booking_link):
         if len(revs) == 1:
             no_revs = int(revs[0].get_text().strip().split(" ")[0].replace(",", ""))
             if no_revs >= 1:
-                rvurl = review_rp(hurl)
+                rvurl = review_rp(hurl, ccode)
                 hurl = booking_link + hurl
                 rvurl = booking_link + rvurl
                 hotel_links.append((hname, no_revs, hurl, rvurl))
@@ -49,16 +49,16 @@ def url1page(region_link, booking_link):
     return hotel_links, nxt_link
 
 
-def hotel_urls(region_file, region_link, booking_link, max_page=5):
+def hotel_urls(region_file, region_link, booking_link, max_page=5, ccode="ca"):
     c = 0
-    list_hotel, nxt_link = url1page(region_link, booking_link)
+    list_hotel, nxt_link = url1page(region_link, booking_link, ccode)
     while len(nxt_link) != 0:
         # print(nxt_link)
         if max_page > 0:
             c += 1
             if c == max_page:
                 break
-        hotels, nxt_link = url1page(nxt_link, booking_link)
+        hotels, nxt_link = url1page(nxt_link, booking_link, ccode)
         list_hotel.extend(hotels)
     list_hotel.sort(key=lambda x: x[1], reverse=True)
     # TODO: write to a file instead of using list
@@ -108,7 +108,18 @@ booking_canada_hotel = {
                 "/media/data/hotels/booking_v2/raw_data/booking_nunavut_info.pkl")}
 
 
-def nation_url():
+booking_australia_hotel = {
+    "Australian Capital Territory": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=1381;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "New South Wales": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=612;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "Northern Territory": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=613;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "Queensland": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=614;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "South Australia": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=1380;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "Tasmania": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=616;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "Victoria": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=617;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed",
+    "Western Australia": "https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1DCA0oJ0IFbm9tYWRIM1gEaCeIAQGYAS64AQfIAQzYAQPoAQGSAgF5qAID;sid=b4be965cfe5d1ffcf63265b632204bc8;atlas_src=lp_map;dest_id=1379;dest_type=region;srpvid=2f0085ea41ff0328&;map=1#map_closed"}
+
+
+def canada_nation_url():
     booking_link = "https://www.booking.com"
     for region in booking_canada_hotel:
         start = time.time()
@@ -119,5 +130,16 @@ def nation_url():
         print("\t+ Processing time: %.4f(s)" % (time.time()-start))
 
 
+def nation_url(national_hotel, path="/media/data/hotels/booking_v3/raw_data/australia/", ccode="ca"):
+    booking_link = "https://www.booking.com"
+    for region in national_hotel:
+        start = time.time()
+        region_link = national_hotel[region]
+        region_file = path + region.replace(" ", "_").lower() + "_info.pkl"
+        print("- Extracting hotel urls in '%s' province" % region)
+        hotel_links = hotel_urls(region_file, region_link, booking_link, max_page=-1, ccode=ccode)
+        print("\t+ Processing time: %.4f(s)" % (time.time()-start))
+
+
 if __name__ == "__main__":
-    nation_url()
+    nation_url(booking_australia_hotel, path="/media/data/hotels/booking_v3/raw_data/australia/", ccode="au")

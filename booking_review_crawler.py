@@ -101,12 +101,48 @@ def rv1page(rv_link, pos_file, neg_file):
     return pos_rvs, neg_rvs, nxt_link
 
 
-def rv1hotel(rv_link, booking_link, pos_file, neg_file):
+def rv1page_pol(rv_link, pos_file, neg_file):
+    result = requests.get(rv_link)
+    content = result.content
+    soup = BeautifulSoup(content, "html.parser")
+    rvconts = soup.find_all("div", attrs={"class": "review_item_review"})
+    nxtpage = soup.find_all("a", attrs={"id": "review_next_page_link"})
+    nxt_link = ""
+    if len(nxtpage) != 0:
+        nxt_link = nxtpage[0].get("href").strip()
+    pos_rvs = []
+    neg_rvs = []
+    for rvcont in rvconts:
+        score = rvcont.find_all("span", attrs={"class": "review-score-badge"})
+        if len(score) == 1:
+            score = float(score[0].text.strip())
+            if score >= 9.0:
+                pos = rvcont.find_all("p", attrs={"class": "review_pos "})
+                # if len(pos) + len(neg) == 1:
+                if len(pos) == 1:
+                    pos_rv = pos[0].find_all("span", attrs={"itemprop": "reviewBody"})[0].text.strip()
+                    pos_rv = " ".join(pos_rv.split())
+                    if len(pos_rv.split()) >= 2:
+                        pos_rvs.append(pos_rv)
+                        # TODO: write into file instead of  using lists
+                        write_line(pos_file, pos_rv)
+            if score <= 7.0:
+                neg = rvcont.find_all("p", attrs={"class": "review_neg "})
+                if len(neg) == 1:
+                    neg_rv = neg[0].find_all("span", attrs={"itemprop": "reviewBody"})[0].text.strip()
+                    neg_rv = " ".join(neg_rv.split())
+                    if len(neg_rv.split()) >= 2:
+                        neg_rvs.append(neg_rv)
+                        write_line(neg_file, neg_rv)
+    return pos_rvs, neg_rvs, nxt_link
+
+
+def rv1hotel(rv_link, booking_link, pos_file, neg_file, crawler=rv1page):
     start = time.time()
-    pos_rvs, neg_rvs, nxt = rv1page(rv_link, pos_file, neg_file)
+    pos_rvs, neg_rvs, nxt = crawler(rv_link, pos_file, neg_file)
     while len(nxt) != 0:
         nxt = booking_link + nxt
-        pos, neg, nxt = rv1page(nxt, pos_file, neg_file)
+        pos, neg, nxt = crawler(nxt, pos_file, neg_file)
         pos_rvs.extend(pos)
         neg_rvs.extend(neg)
     now = time.time() - start
@@ -114,7 +150,7 @@ def rv1hotel(rv_link, booking_link, pos_file, neg_file):
     return pos_rvs, neg_rvs
 
 
-def rvnhotel(hotel_links, booking_link, pos_file, neg_file, n=5):
+def rvnhotel(hotel_links, booking_link, pos_file, neg_file, n=5, crawler=rv1page):
     pos_data = []
     neg_data = []
     start = time.time()
@@ -123,11 +159,12 @@ def rvnhotel(hotel_links, booking_link, pos_file, neg_file, n=5):
     for hotel_link in hotel_links:
         print("- Scraping hotel '%s':" % hotel_link[0])
         rv_link = hotel_link[-1]
-        pos_rvs, neg_rvs = rv1hotel(rv_link, booking_link, pos_file, neg_file)
+        pos_rvs, neg_rvs = rv1hotel(rv_link, booking_link, pos_file, neg_file, crawler)
         pos_data.extend(pos_rvs)
         neg_data.extend(neg_rvs)
     now = time.time() - start
-    print("Scraping all %d hotels in %.4f(s); average speed %.2f(reviews/s)"%((len(hotel_links), now, (len(neg_data) + len(pos_data))/now)))
+    print("Scraping all %d hotels (%d positive & %d negative) in %.4f(s); average speed %.2f(reviews/s)" %
+          (len(hotel_links), len(pos_data), len(neg_data), now, (len(neg_data) + len(pos_data))/now))
     return pos_data, neg_data
 
 
@@ -153,4 +190,6 @@ if __name__ == "__main__":
     args = argparser.parse_args()
 
     hotel_links = joblib.load(args.region_file)
-    pos_data, neg_data = rvnhotel(hotel_links, args.booking_link, args.pos_file, args.neg_file, n=-1)
+
+    pos_data, neg_data = rvnhotel(hotel_links, args.booking_link, args.pos_file, args.neg_file,
+                                  n=-1, crawler=rv1page_pol)

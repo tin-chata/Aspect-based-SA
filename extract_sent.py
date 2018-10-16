@@ -14,8 +14,8 @@ def sftokenize(readfile, port=9000):
         for line in f:
             sents = sNLP.ssplit(line)
             for sent in sents:
-                psent = remove_symbols(sent)
-                if len(psent.split()) >= 2 and len(psent) >= 6:
+                psent = remove_symbols(" ".join(sent))
+                if len(psent.split()) >= 2 and len(" ".join(sent)) >= 6:
                     data.append(" ".join(sent))
                     c += 1
                     if c % 10000 == 0:
@@ -38,7 +38,7 @@ def clean_data(pos_rfile="/media/data/hotels/booking_v2/raw_data/booking.negativ
 
 if __name__ == "__main__":
     """
-    python booking_analysis.py --read_file /media/data/booking.com/booking_bc_positive.txt --write_file /media/data/booking.com/booking_bc_positive.sorted.txt
+    python extract_sent.py --pos_rfile /media/data/hotels/booking_v3/raw_data/canada_positive.txt --neg_rfile /media/data/hotels/booking_v3/raw_data/canada_negative.txt  --pos_wfile /media/data/hotels/booking_v3/processed/extracted_sent/canada_positive.set.txt --neg_wfile /media/data/hotels/booking_v3/processed/extracted_sent/canada_negative.set.txt
     """
     import argparse
 

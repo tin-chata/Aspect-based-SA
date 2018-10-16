@@ -220,6 +220,11 @@ def extract_jj_nn(interest_anpos, tag_dict):
 
 
 if __name__ == "__main__":
-    tag_file = "/media/data/hotels/booking_v2/processed/extracted_tag/tag_count_dict.pkl"
-    tag_count, tag_dict = joblib.load(tag_file)
+    # tag_file = "/media/data/hotels/booking_v2/processed/extracted_tag/tag_count_dict.pkl"
+    # tag_count, tag_dict = joblib.load(tag_file)
+    # joblib.dump(tag_count, "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
+    # joblib.dump(tag_dict, "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
+    # tag_file = "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict.pkl"
+    tag_count = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
+    tag_dict = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
     # noun_dict, adj_dict = extract_jj_nn(interest_anpos, tag_dict)
