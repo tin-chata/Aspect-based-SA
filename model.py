@@ -244,7 +244,7 @@ def build_data(args):
 
 if __name__ == '__main__':
     """
-    python model.py --train_file ../data/train_v3.csv --dev_file ../data/val_v3.csv --test_file ../data/test_v3.csv --emb_file ../data/sf_review.pro.vec --model_name ./results/sf_distlstm_v3_pp.m --model_args ./results/sf_distlstm_v3_pp.args --use_cuda 
+    screen python model.py --train_file ../data/booking_train_v5.csv --dev_file ../data/booking_val_v5.csv --test_file ../data/booking_test_v5.csv --emb_file ../data/sf_hotel.pro.v2.vec --model_name ./results/booking_lstm_v5_ps.m --model_args ./results/booking_lstm_v5_ps.args --use_cuda
     """
     argparser = argparse.ArgumentParser(sys.argv[0])
 

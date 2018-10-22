@@ -173,6 +173,7 @@ class Csvfile(object):
                 next(csvreader)
             for line in itertools.islice(csvreader, self.limit):
                 sent, asp, tag = line
+                sent, asp = Csvfile.process_sent(sent, asp)
                 if self.word2idx is not None:
                     sent, asp = self.word2idx(sent, asp)
                 if self.tag2idx is not None:
@@ -190,8 +191,8 @@ class Csvfile(object):
 
     @staticmethod
     def process_sent(sent, asp):
-        asp = re.sub('[^0-9a-zA-Z ]+', ' ', asp)
-        sent = re.sub('[^0-9a-zA-Z ]+', ' ', sent)
+        asp = re.sub('[^0-9a-zA-Z ]+', '', asp)
+        sent = re.sub('[^0-9a-zA-Z ]+', '', sent)
         if asp != "NULL" or len(asp.split()) >= 2:
             asp_rep = asp.replace(" ", "_")
             sent_rep = sent.replace(asp, asp_rep)

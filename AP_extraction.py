@@ -185,37 +185,38 @@ def extract_jj_nn(interest_anpos, tag_dict):
         pos, loc = anpos
         nloc, aloc = loc
         for sent in tag_dict[pos]:
-            tokens = sent[0].lower().split()
+            tokens = sent.lower().split()
             noun_dict.update(location(tokens, nloc))
             adj_dict.update(location(tokens, aloc))
 
-    for anpos in noisy_anpos:
-        pos, loc = anpos
-        nloc, aloc = loc
-        for sent in tag_dict[pos]:
-            tokens = sent[0].lower().split()
-            noun_dict.update(location(tokens, nloc))
-            adj_dict.update(location(tokens, aloc))
-
-    for apos in noisy_apos:
-        pos, aloc = apos
-        for sent in tag_dict[pos]:
-            tokens = sent[0].lower().split()
-            adj_dict.update(location(tokens, aloc))
-
-    for npos in noisy_npos:
-        pos, nloc = npos
-        for sent in tag_dict[pos]:
-            tokens = sent[0].lower().split()
-            noun_dict.update(location(tokens, nloc))
+    # for anpos in noisy_anpos:
+    #     pos, loc = anpos
+    #     nloc, aloc = loc
+    #     for sent in tag_dict[pos]:
+    #         tokens = sent.lower().split()
+    #         noun_dict.update(location(tokens, nloc))
+    #         adj_dict.update(location(tokens, aloc))
+    #
+    # for apos in noisy_apos:
+    #     pos, aloc = apos
+    #     for sent in tag_dict[pos]:
+    #         tokens = sent.lower().split()
+    #         adj_dict.update(location(tokens, aloc))
+    #
+    # for npos in noisy_npos:
+    #     pos, nloc = npos
+    #     for sent in tag_dict[pos]:
+    #         tokens = sent.lower().split()
+    #         noun_dict.update(location(tokens, nloc))
 
     strip_wds = ["everything", "everythings", "nothing", "nothing everything", "thing", "things", "lot", "day", "all",
                  "others", "anything", "evrything", "hour", "part", "fun", "mess", "else", "bit", "night", "b", "way",
                  "super", "none", "wife", "pretty", "dislike", "complaints", "complaint", "everyone", "time", "joke"]
-    # strip_wds = []
+    strip_wds = []
     for wd in strip_wds:
-        noun_dict.pop(wd)
-    write_csv_lines("/media/data/hotels/booking_v2/processed/extracted_tag/tag_aspects2.csv", noun_dict.most_common())
+        if wd in noun_dict:
+            noun_dict.pop(wd)
+    write_csv_lines("/media/data/hotels/kdd11/processed/extracted_tag/tag_aspects.csv", noun_dict.most_common())
     return noun_dict, adj_dict
 
 
@@ -225,6 +226,7 @@ if __name__ == "__main__":
     # joblib.dump(tag_count, "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
     # joblib.dump(tag_dict, "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
     # tag_file = "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict.pkl"
-    tag_count = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
-    tag_dict = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
-    # noun_dict, adj_dict = extract_jj_nn(interest_anpos, tag_dict)
+    # tag_count = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
+    # tag_dict = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
+    tag_count, tag_dict = joblib.load('/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict_c5.pkl')
+    noun_dict, adj_dict = extract_jj_nn(interest_anpos, tag_dict)

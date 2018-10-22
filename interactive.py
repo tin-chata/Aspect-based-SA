@@ -5,27 +5,18 @@ Created on Wed Mar 28 03:38:32 2018
 
 @author: duytinvo
 """
-import re
 import torch
-# import csv
 import random
 import argparse
 import numpy as np
-# from collections import Counter
 from model import Classifier
+from process_data import process_sent_ap
 from utils.other_utils import SaveloadHP
 
 seed_num = 12345
 random.seed(seed_num)
 torch.manual_seed(seed_num)
 np.random.seed(seed_num)
-
-
-def process_sent(sent):
-    sent = re.sub("[\'\"`]+", '', sent)
-    sent = re.sub('[^0-9a-zA-Z ]+', ' ', sent)
-    sent = sent.lower()
-    return sent.strip().split()
 
 
 def interactive_shell(args):
@@ -66,12 +57,9 @@ input> wth is it????""")
 
         if sentence == "EXIT":
             break
-
-        aspect = " ".join(process_sent(aspect))
-        asp_rep = aspect.replace(" ", "_")
-        sentence = " ".join(process_sent(sentence))
-        sent_rep = sentence.replace(aspect, asp_rep)
-
+        aspect = aspect.lower()
+        sentence = sentence.lower()
+        sent_rep, asp_rep = process_sent_ap(sentence, aspect)
         label_prob, label_pred = classifier.predict(sent_rep, asp_rep, len(i2l))
         print("\t[SA_PREDICTION] Polarity score of '%s' is %f" % (aspect, label_prob.item()))
 
@@ -82,7 +70,7 @@ if __name__ == '__main__':
     
     argparser.add_argument("--use_cuda", action='store_true', default=False, help="GPUs Flag (default False)")
         
-    argparser.add_argument('--model_args', help='Args file', default="./results/booking_lstm_v4_ps.args", type=str)
+    argparser.add_argument('--model_args', help='Args file', default="./results/booking_lstm_v6_ps.args", type=str)
     
     args = argparser.parse_args()
         

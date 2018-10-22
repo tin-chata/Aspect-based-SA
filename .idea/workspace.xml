@@ -4,13 +4,14 @@
     <list default="true" id="31b39828-3e6e-41bb-b5da-e4d82ad86350" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AP_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/AP_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking_metainfo_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking_metainfo_crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking_review_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking_review_crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extract_sent.py" beforeDir="false" afterPath="$PROJECT_DIR$/extract_sent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/Untitled.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/booking_crawler.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/booking_crawler.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tag_count.py" beforeDir="false" afterPath="$PROJECT_DIR$/tag_count.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ap_filtering.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ap_filtering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corenlpsf.py" beforeDir="false" afterPath="$PROJECT_DIR$/corenlpsf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive.py" beforeDir="false" afterPath="$PROJECT_DIR$/interactive.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/process_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trip_review_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/trip_review_crawler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,36 +23,39 @@
     <session id="741551319">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
+          <entry key="project.closed" value="30" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.4" value="4" />
-          <entry key="project.open.time.5" value="12" />
-          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.5" value="13" />
+          <entry key="project.open.time.6" value="4" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="27" />
+          <entry key="project.open.time.8" value="2" />
+          <entry key="project.opened" value="32" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="165" />
+          <entry key="py" value="187" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="165" />
+          <entry key="Python" value="187" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="6256" />
-          <entry key="py" value="14052" />
+          <entry key="Python Console" value="6918" />
+          <entry key="py" value="15277" />
+          <entry key="txt" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="20308" />
+          <entry key="PLAIN_TEXT" value="11" />
+          <entry key="Python" value="22195" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -60,13 +64,31 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Ap_filtering.py">
+        <entry file="file://$PROJECT_DIR$/utils/core_nns.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="1068">
+              <caret line="196" column="41" lean-forward="true" selection-start-line="196" selection-start-column="41" selection-end-line="196" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/predict.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1943">
+              <caret line="113" column="67" lean-forward="true" selection-start-line="113" selection-start-column="67" selection-end-line="113" selection-end-column="67" />
               <folding>
-                <element signature="e#48#58#0" expanded="true" />
+                <element signature="e#110#119#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2127">
+              <caret line="216" column="77" selection-start-line="216" selection-start-column="64" selection-end-line="216" selection-end-column="77" />
             </state>
           </provider>
         </entry>
@@ -74,30 +96,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/corenlpsf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4301">
-              <caret line="187" column="12" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="54" />
+            <state relative-caret-position="265">
+              <caret line="201" column="4" selection-start-line="201" selection-start-column="4" selection-end-line="204" selection-end-column="20" />
               <folding>
-                <element signature="e#48#59#0" expanded="true" />
-                <marker date="1539114892808" expanded="true" signature="5194:5196" ph="..." />
+                <element signature="e#48#57#0" expanded="true" />
+                <marker date="1540225122926" expanded="true" signature="6334:6337" ph="..." />
+                <marker date="1540225122926" expanded="true" signature="6722:6724" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/extract_sent.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="40" column="351" selection-start-line="40" selection-start-column="351" selection-end-line="40" selection-end-column="351" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AP_mapping.py">
+        <entry file="file://$PROJECT_DIR$/interactive.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="100" column="41" lean-forward="true" selection-start-line="100" selection-start-column="41" selection-end-line="100" selection-end-column="41" />
+            <state relative-caret-position="577">
+              <caret line="72" column="115" selection-start-line="72" selection-start-column="115" selection-end-line="72" selection-end-column="115" />
+              <folding>
+                <element signature="e#110#122#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,8 +122,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/process_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1468">
-              <caret line="90" column="34" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="34" />
+            <state relative-caret-position="374">
+              <caret line="107" column="21" selection-start-line="107" selection-start-column="18" selection-end-line="107" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -137,31 +154,33 @@
         <option value="$PROJECT_DIR$/wv_AP_groups.py" />
         <option value="$PROJECT_DIR$/data_preprocessing.py" />
         <option value="$PROJECT_DIR$/wv_kmeans.py" />
-        <option value="$PROJECT_DIR$/create_dataset.py" />
         <option value="$PROJECT_DIR$/booking_AP_mapping.py" />
         <option value="$PROJECT_DIR$/booking_pos_analysis.py" />
         <option value="$PROJECT_DIR$/booking_preprocessing.py" />
         <option value="$PROJECT_DIR$/trip_extract_nps.py" />
         <option value="$PROJECT_DIR$/trip_extract_dataset.py" />
         <option value="$PROJECT_DIR$/booking_analysis.py" />
-        <option value="$PROJECT_DIR$/trip_review_crawler.py" />
         <option value="$PROJECT_DIR$/trip_extract_sent.py" />
         <option value="$PROJECT_DIR$/booking_extract_sent.py" />
         <option value="$PROJECT_DIR$/tag_analysis.py" />
         <option value="$PROJECT_DIR$/booking_tag_count.py" />
         <option value="$PROJECT_DIR$/trip_tag_count.py" />
-        <option value="$PROJECT_DIR$/process_data.py" />
-        <option value="$PROJECT_DIR$/predict.py" />
-        <option value="$PROJECT_DIR$/utils/data_utils.py" />
-        <option value="$PROJECT_DIR$/corenlpsf.py" />
         <option value="$PROJECT_DIR$/AP_mapping.py" />
         <option value="$PROJECT_DIR$/Ap_filtering.py" />
-        <option value="$PROJECT_DIR$/interactive.py" />
         <option value="$PROJECT_DIR$/tag_count.py" />
-        <option value="$PROJECT_DIR$/AP_extraction.py" />
         <option value="$PROJECT_DIR$/booking_review_crawler.py" />
         <option value="$PROJECT_DIR$/booking_metainfo_crawler.py" />
         <option value="$PROJECT_DIR$/extract_sent.py" />
+        <option value="$PROJECT_DIR$/utils/data_utils.py" />
+        <option value="$PROJECT_DIR$/model.py" />
+        <option value="$PROJECT_DIR$/AP_filtering.py" />
+        <option value="$PROJECT_DIR$/create_dataset.py" />
+        <option value="$PROJECT_DIR$/AP_extraction.py" />
+        <option value="$PROJECT_DIR$/process_data.py" />
+        <option value="$PROJECT_DIR$/interactive.py" />
+        <option value="$PROJECT_DIR$/trip_review_crawler.py" />
+        <option value="$PROJECT_DIR$/corenlpsf.py" />
+        <option value="$PROJECT_DIR$/predict.py" />
       </list>
     </option>
   </component>
@@ -183,6 +202,11 @@
             <path>
               <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="hotel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hotel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hotel" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -212,7 +236,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.booking_metainfo_crawler">
+  <component name="RunManager" selected="Python.corenlpsf">
     <configuration name="AP_extraction" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="hotel" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -226,6 +250,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AP_extraction.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AP_filtering" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="hotel" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AP_filtering.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -280,9 +325,6 @@
       <module name="hotel" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -297,41 +339,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="predict" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="hotel" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/predict.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.corenlpsf" />
-      <item itemvalue="Python.predict" />
       <item itemvalue="Python.AP_extraction" />
       <item itemvalue="Python.Ap_filtering" />
       <item itemvalue="Python.booking_metainfo_crawler" />
+      <item itemvalue="Python.AP_filtering" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.booking_metainfo_crawler" />
-        <item itemvalue="Python.AP_extraction" />
         <item itemvalue="Python.corenlpsf" />
+        <item itemvalue="Python.AP_extraction" />
+        <item itemvalue="Python.AP_filtering" />
+        <item itemvalue="Python.booking_metainfo_crawler" />
         <item itemvalue="Python.Ap_filtering" />
-        <item itemvalue="Python.predict" />
       </list>
     </recent_temporary>
   </component>
@@ -346,12 +367,20 @@
       <option name="presentableId" value="Default" />
       <updated>1537215205384</updated>
     </task>
+    <task id="LOCAL-00001" summary="next update">
+      <created>1539717063603</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1539717063603</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="-123" width="1920" height="1080" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1943128" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22906794" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -362,10 +391,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32997987" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.29074445" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.45070422" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="11" visible="true" weight="0.23541248" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -374,8 +403,22 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="next update" />
+    <option name="LAST_COMMIT_MESSAGE" value="next update" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/process_data.py</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model.py" />
     <entry file="file://$PROJECT_DIR$/hotel_review_crawler.py" />
     <entry file="file://$PROJECT_DIR$/extract_dataset.py" />
     <entry file="file://$PROJECT_DIR$/hotel_extract_nps.py" />
@@ -385,7 +428,6 @@
     <entry file="file://$PROJECT_DIR$/data_preprocessing.py" />
     <entry file="file://$PROJECT_DIR$/hotel_extract_dataset.py" />
     <entry file="file://$PROJECT_DIR$/summarization.py" />
-    <entry file="file://$PROJECT_DIR$/create_dataset.py" />
     <entry file="file://$PROJECT_DIR$/booking_pos_analysis.py" />
     <entry file="file://$PROJECT_DIR$/trip_extract_nps.py" />
     <entry file="file://$PROJECT_DIR$/booking_AP_mapping.py" />
@@ -405,48 +447,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trip_extract_dataset.py" />
     <entry file="file://$PROJECT_DIR$/booking_analysis.py" />
-    <entry file="file://$PROJECT_DIR$/trip_review_crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1947">
-          <caret line="212" column="38" lean-forward="true" selection-start-line="212" selection-start-column="38" selection-end-line="212" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trip_extract_sent.py" />
     <entry file="file://$PROJECT_DIR$/booking_extract_sent.py" />
-    <entry file="file://$PROJECT_DIR$/trip_pull_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2553">
-          <caret line="114" column="24" selection-start-line="114" selection-start-column="4" selection-end-line="114" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/booking_preprocessing.py" />
     <entry file="file://$PROJECT_DIR$/tag_analysis.py" />
     <entry file="file://$PROJECT_DIR$/trip_AP_extraction.py" />
     <entry file="file://$PROJECT_DIR$/trip_tag_count.py" />
     <entry file="file://$PROJECT_DIR$/booking_tag_count.py" />
-    <entry file="file://$PROJECT_DIR$/utils/data_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2144">
-          <caret line="189" lean-forward="true" selection-start-line="189" selection-end-line="189" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/predict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="41" column="68" lean-forward="true" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/interactive.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="75" column="50" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tag_count.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
@@ -465,61 +472,118 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1619">
           <caret line="193" column="33" selection-start-line="193" selection-start-column="25" selection-end-line="193" selection-end-column="33" />
-          <folding>
-            <element signature="e#48#59#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="24" column="41" lean-forward="true" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AP_mapping.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2155">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AP_filtering.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2162">
+          <caret line="98" column="4" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trip_pull_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1955">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trip_review_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1685">
+          <caret line="211" column="29" selection-start-line="211" selection-start-column="12" selection-end-line="211" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AP_extraction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="883">
-          <caret line="161" selection-start-line="161" selection-end-line="178" />
+        <state relative-caret-position="656">
+          <caret line="231" column="16" selection-start-line="231" selection-start-column="16" selection-end-line="231" selection-end-column="16" />
           <folding>
             <element signature="e#48#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Ap_filtering.py">
+    <entry file="file://$PROJECT_DIR$/utils/data_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#48#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corenlpsf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4301">
-          <caret line="187" column="12" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="54" />
-          <folding>
-            <element signature="e#48#59#0" expanded="true" />
-            <marker date="1539114892808" expanded="true" signature="5194:5196" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/process_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1468">
-          <caret line="90" column="34" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AP_mapping.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="100" column="41" lean-forward="true" selection-start-line="100" selection-start-column="41" selection-end-line="100" selection-end-column="41" />
+        <state relative-caret-position="441">
+          <caret line="192" column="4" selection-start-line="192" selection-start-column="4" selection-end-line="203" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/extract_sent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="40" column="351" selection-start-line="40" selection-start-column="351" selection-end-line="40" selection-end-column="351" />
+        <state relative-caret-position="368">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/process_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="107" column="21" selection-start-line="107" selection-start-column="18" selection-end-line="107" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interactive.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="72" column="115" selection-start-line="72" selection-start-column="115" selection-end-line="72" selection-end-column="115" />
+          <folding>
+            <element signature="e#110#122#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2127">
+          <caret line="216" column="77" selection-start-line="216" selection-start-column="64" selection-end-line="216" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/core_nns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1068">
+          <caret line="196" column="41" lean-forward="true" selection-start-line="196" selection-start-column="41" selection-end-line="196" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corenlpsf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="201" column="4" selection-start-line="201" selection-start-column="4" selection-end-line="204" selection-end-column="20" />
+          <folding>
+            <element signature="e#48#57#0" expanded="true" />
+            <marker date="1540225122926" expanded="true" signature="6334:6337" ph="..." />
+            <marker date="1540225122926" expanded="true" signature="6722:6724" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1943">
+          <caret line="113" column="67" lean-forward="true" selection-start-line="113" selection-start-column="67" selection-end-line="113" selection-end-column="67" />
+          <folding>
+            <element signature="e#110#119#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

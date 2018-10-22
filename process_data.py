@@ -101,7 +101,7 @@ def sorted_file(readfile, writefile):
 def process_sent_ap(sent, asp):
     asp = remove_symbols(asp)
     sent = remove_symbols(sent)
-    if len(asp.split()) >= 2:
+    if asp != "NULL" or len(asp.split()) >= 2:
         asp_rep = asp.replace(" ", "_")
         sent_rep = sent.replace(asp, asp_rep)
     else:

@@ -6,6 +6,7 @@ import csv
 import re
 from corenlpsf import StanfordNLP
 from collections import Counter
+from process_data import remove_symbols
 
 
 def check_overlap(aspects, aspect, sent):
@@ -13,9 +14,9 @@ def check_overlap(aspects, aspect, sent):
         Check if olp_aps not in sent
     """
     for ap in aspects:
-        if len(ap) > len(aspect) and re.search(r"\b%s\b" % ap, sent, flags=re.I):
-            return False
-    return True
+        if ap != aspect and re.match(r"\b%s\b" % aspect, ap) and re.search(r"\b%s\b" % ap, sent, flags=re.I):
+            return True
+    return False
 
 
 def topap(tag_file, n=50):
@@ -43,13 +44,14 @@ def mapping_ap(ap_file, label, sent_file, tag_file, n, port):
         with open(sent_file, "r") as g:
             for line in g:
                 sent = line.strip()
+                psent = remove_symbols(sent)
                 wds = []
                 pos = []
                 for ap in common_aspects:
-                    if re.search(r"\b%s\b" % ap, sent, flags=re.I) and 7 <= len(sent.split()) <= 50:
-                        if check_overlap(common_aspects, ap, sent):
+                    if re.search(r"\b%s\b" % ap, sent, flags=re.I) and 5 <= len(psent.split()) <= 100:
+                        if not check_overlap(common_aspects, ap, sent):
                             if len(wds) == len(pos) == 0:
-                                wds, pos = zip(*sNLP.pos(line.strip()))
+                                wds, pos = zip(*sNLP.pos(sent))
                                 wds = [wd.lower() for wd in wds]
                             try:
                                 if pos[wds.index(ap.split()[0])] in ["NN", "NNS", "NNP", "NNPS"] and \
@@ -67,13 +69,14 @@ def mapping_ap(ap_file, label, sent_file, tag_file, n, port):
                                             c += 1
                                             if c % 10000 == 0:
                                                 print("Processing %d lines" % c)
-                            except:
+                            except ValueError:
+                                print(sent)
                                 pass
 
 
 if __name__ == "__main__":
     """
-    python Ap_filtering.py --label negative --sent_file /media/data/hotels/booking_v2/processed/extracted_sent/negative.set.txt --ap_file /media/data/hotels/booking_v2/processed/extracted_ap/aspect_negative_v2.csv 
+    python AP_filtering.py --label negative --sent_file /media/data/hotels/booking_v3/processed/extracted_sent/booking.negative.set.sort.txt --ap_file /media/data/hotels/booking_v3/processed/extracted_ap/aspect_negative.csv
     """
     import argparse
 
@@ -93,7 +96,7 @@ if __name__ == "__main__":
 
     argparser.add_argument('--n', help='top n aspects', default=100, type=int)
 
-    argparser.add_argument('--port', help='port number', default=8000, type=int)
+    argparser.add_argument('--port', help='port number', default=9000, type=int)
 
     args = argparser.parse_args()
 

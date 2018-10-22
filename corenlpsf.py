@@ -2,6 +2,7 @@
 Created on 2018-08-17
 @author: duytinvo
 """
+import re
 import json
 from nltk.tree import Tree
 from sklearn.externals import joblib
@@ -157,7 +158,44 @@ def extract_allnp(sent, sNLP=StanfordNLP()):
         if len(s) > 0:
             d.append(" ".join(s))
     return d
-    # return [" ".join(np.leaves()) for np in NPs]
+
+
+noun_phases = [
+               ('NNS', 'IN', 'DT', 'NN'), ('NNS', 'IN', 'DT', 'NNS'), ('NNS', 'IN', 'DT', 'NNP'), ('NNS', 'IN', 'DT', 'NNPS'),
+               ('NNS', 'IN', 'NN'), ('NNS', 'IN', 'NN'), ('NNS', 'IN', 'NNS'), ('NNS', 'IN', 'NNP'), ('NNS', 'IN', 'NNPS'),
+               ('NN', 'IN', 'DT', 'NN'), ('NN', 'IN', 'DT', 'NNS'), ('NN', 'IN', 'DT', 'NNP'), ('NN', 'IN', 'DT', 'NNPS'),
+               ('NN', 'IN', 'NN'), ('NN', 'IN', 'NN'), ('NN', 'IN', 'NNS'), ('NN', 'IN', 'NNP'), ('NN', 'IN', 'NNPS'),
+               ('NNP', 'IN', 'DT', 'NN'), ('NNP', 'IN', 'DT', 'NNS'), ('NNP', 'IN', 'DT', 'NNP'), ('NNP', 'IN', 'DT', 'NNPS'),
+               ('NNPS', 'IN', 'NN'), ('NNPS', 'IN', 'NN'), ('NNPS', 'IN', 'NNS'), ('NNPS', 'IN', 'NNP'), ('NNPS', 'IN', 'NNPS')
+               ]
+
+
+def findsublist(haystack, needle):
+    h = len(haystack)
+    n = len(needle)
+    skip = {needle[i]: n - i - 1 for i in range(n - 1)}
+    i = n - 1
+    idx = []
+    while i < h:
+        for j in range(n):
+            if haystack[i - j] != needle[-j - 1]:
+                i += skip.get(haystack[i], n)
+                break
+        else:
+            idx.append(i - n + 1)
+            i += n
+            # return i - n + 1
+    return idx
+
+
+def merge_np(tags, nps):
+    for np in nps:
+        if re.search(r"\b%s\b" % (" ".join(np)), " ".join(tags)):
+            ids = findsublist(tags, np)
+            if len(ids) > 0:
+                for idx in ids:
+                    tags[idx: idx + len(np)] = [np[0]] * len(np)
+    return tags
 
 
 def extract_nn(sent, sNLP=StanfordNLP()):
@@ -165,16 +203,17 @@ def extract_nn(sent, sNLP=StanfordNLP()):
     nps = []
     cur = []
     s, t = zip(*pos)
+    t = merge_np(list(t), noun_phases)
     for i in range(len(pos)-1):
         if t[i] in ["NN", "NNS", "NNP", "NNPS"]:
             cur += [s[i]]
             if t[i + 1] not in ["NN", "NNS", "NNP", "NNPS"]:
-                nps.append(" ".join(cur))
+                nps.append(" ".join(cur).lower())
                 cur = []
     if t[-1] in ["NN", "NNS", "NNP", "NNPS"]:
         cur += [s[-1]]
     if len(cur) != 0:
-        nps.append(" ".join(cur))
+        nps.append(" ".join(cur).lower())
     return nps
 
 
@@ -194,7 +233,7 @@ if __name__ == '__main__':
     """
     java --add-modules java.se.ee -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
     """
-    sNLP = StanfordNLP(port=8000)
+    sNLP = StanfordNLP(port=9000)
 
 
 

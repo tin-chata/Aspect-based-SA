@@ -139,14 +139,18 @@ def exact_all_revs(filename, review_link, min_page=-1):
     dats = review_zone.find_elements_by_css_selector("div.ui_column.is-9 > span.ratingDate")
     rats = review_zone.find_elements_by_css_selector("div.ui_column.is-9 > span.ui_bubble_rating")
     assert len(dats) == len(rats) == len(revs)
-    for i, rev in enumerate(revs):
+    for j, rev in enumerate(revs):
         data.append(
-            (dats[i].get_attribute("title"), rev.text, rats[i].get_attribute("class").split()[-1].split("_")[-1]))
+            (dats[j].get_attribute("title"), rev.text, rats[j].get_attribute("class").split()[-1].split("_")[-1]))
+    print("- STREAMING REVIEWS:")
+    print("\t+ Pulling page 1: %d reviews" % len(data))
     write_csv_a_lines(filename, data)
 
     num_pages = int(review_zone.find_element_by_css_selector("a.pageNum.last.taLnk").text)
     if min_page > 0:
         num_pages = min_page
+
+    c = len(data)
     i = 1
     while i < num_pages:
         i += 1
@@ -182,9 +186,12 @@ def exact_all_revs(filename, review_link, min_page=-1):
             dats = review_zone.find_elements_by_css_selector("div.ui_column.is-9 > span.ratingDate")
             rats = review_zone.find_elements_by_css_selector("div.ui_column.is-9 > span.ui_bubble_rating")
             assert len(dats) == len(rats) == len(revs)
-            for i, rev in enumerate(revs):
-                data.append((dats[i].get_attribute("title"), rev.text,
-                             rats[i].get_attribute("class").split()[-1].split("_")[-1]))
+            for j, rev in enumerate(revs):
+                data.append((dats[j].get_attribute("title"), rev.text,
+                             rats[j].get_attribute("class").split()[-1].split("_")[-1]))
+
+            c += len(data)
+            print("\t+ Pulling page %d: %d reviews" % (i, c))
             write_csv_a_lines(filename, data)
 
         except:
@@ -197,9 +204,11 @@ def exact_all_revs(filename, review_link, min_page=-1):
             dats = review_zone.find_elements_by_css_selector("div.ui_column.is-9 > span.ratingDate")
             rats = review_zone.find_elements_by_css_selector("div.ui_column.is-9 > span.ui_bubble_rating")
             assert len(dats) == len(rats) == len(revs)
-            for i, rev in enumerate(revs):
-                data.append((dats[i].get_attribute("title"), rev.text,
-                             rats[i].get_attribute("class").split()[-1].split("_")[-1]))
+            for j, rev in enumerate(revs):
+                data.append((dats[j].get_attribute("title"), rev.text,
+                             rats[j].get_attribute("class").split()[-1].split("_")[-1]))
+            c += len(data)
+            print("\t+ Pulling page %d: %d reviews" % (i, c))
             write_csv_a_lines(filename, data)
     browser.quit()
 
@@ -216,10 +225,26 @@ def exact_all_revs(filename, review_link, min_page=-1):
 # review_link = review_links[0]
 # data = extract_1page_rev(review_links[0])
 if __name__ == "__main__":
+    """
+    python trip_review_crawler.py --trip_link https://www.tripadvisor.ca/Hotel_Review-g154913-d183509-Reviews-Sheraton_Suites_Calgary_Eau_Claire-Calgary_Alberta.html --min_page 10
+    """
     import os
+    import argparse
+
+    argparser = argparse.ArgumentParser()
+
+    argparser.add_argument('--trip_link', help='tripadvisor link',
+                           default="https://www.tripadvisor.ca/Hotel_Review-g181808-d579389-Reviews-Holiday_Inn_Express_Suites_Airdrie-Airdrie_Alberta.html",
+                           type=str)
+
     # trip_holiday_link = "https://www.tripadvisor.ca/Hotel_Review-g181808-d579389-Reviews-Holiday_Inn_Express_Suites_Airdrie-Airdrie_Alberta.html"
-    trip_hampton_link = "https://www.tripadvisor.ca/Hotel_Review-g181808-d7332235-Reviews-Hampton_Inn_Suites_Airdrie-Airdrie_Alberta.html"
-    basename = os.path.basename(trip_hampton_link)
+    # trip_hampton_link = "https://www.tripadvisor.ca/Hotel_Review-g181808-d7332235-Reviews-Hampton_Inn_Suites_Airdrie-Airdrie_Alberta.html"
+
+    argparser.add_argument('--min_page', help='min_page threshold', default=-1, type=int)
+
+    args = argparser.parse_args()
+
+    basename = os.path.basename(args.trip_link)
     filename = "/Users/duytinvo/Projects/aspectSA/hotel/data/customer_reviews/" + basename + ".csv"
-    exact_all_revs(filename, trip_hampton_link, min_page=-1)
+    exact_all_revs(filename, args.trip_link, min_page=args.min_page)
 
