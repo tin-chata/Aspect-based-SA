@@ -19,6 +19,24 @@ torch.manual_seed(seed_num)
 np.random.seed(seed_num)
 
 
+def predict_null(classifier, sent, asp, i2l):
+    from utils.data_utils import Data2tensor, seqPAD
+    wl = classifier.args.vocab.wl
+    ## set model in eval model
+    classifier.model.eval()
+    fake_label = [0]
+    words, asp_loc = classifier.word2idx(sent, asp)
+    word_ids, sequence_lengths = seqPAD.pad_sequences([words], pad_tok=0, wthres=wl)
+    data_tensors = Data2tensor.sort_tensors(fake_label, [asp_loc], word_ids, sequence_lengths, classifier.device)
+    fake_label_tensor, aspect_tensor, word_tensor, sequence_lengths, word_seq_recover = data_tensors
+    arange_tensor = Data2tensor.idx2tensor(list(range(word_tensor.size(0))), classifier.device)
+    word_h_n = classifier.model.rnn.get_all_hiddens(word_tensor, sequence_lengths).mean(1)
+    label_score = classifier.model.hidden2tag(word_h_n)
+    label_score = classifier.model.dropfinal(label_score)
+    label_prob, label_pred = classifier.model.inference(label_score, len(i2l))
+    return label_prob, label_pred
+
+
 def interactive_shell(args):
     """Creates interactive shell to play with model
 
@@ -57,10 +75,12 @@ input> wth is it????""")
 
         if sentence == "EXIT":
             break
-        aspect = aspect.lower()
-        sentence = sentence.lower()
+
         sent_rep, asp_rep = process_sent_ap(sentence, aspect)
-        label_prob, label_pred = classifier.predict(sent_rep, asp_rep, len(i2l))
+        if aspect == "NULL":
+            label_prob, label_pred = predict_null(classifier, sent_rep, asp_rep, i2l)
+        else:
+            label_prob, label_pred = classifier.predict(sent_rep, asp_rep, len(i2l))
         print("\t[SA_PREDICTION] Polarity score of '%s' is %f" % (aspect, label_prob.item()))
 
 

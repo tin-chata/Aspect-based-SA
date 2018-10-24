@@ -17,6 +17,7 @@ from process_data import process_sent_ap
 from corenlpsf import StanfordNLP
 from corenlpsf import extract_nn as extract_np
 from collections import defaultdict, Counter
+from utils.data_utils import Data2tensor, seqPAD
 
 seed_num = 12345
 random.seed(seed_num)
@@ -34,7 +35,6 @@ class ABSA(object):
         self.i2l = {}
         for k, v in margs.vocab.l2i.items():
             self.i2l[v] = k
-
         print("Load Model from file: %s" % margs.model_name)
         self.classifier = Classifier(margs)
         self.classifier.model.load_state_dict(torch.load(margs.model_name))
@@ -70,10 +70,9 @@ class ABSA(object):
                 print("(0)[NP_TRUNCATE] List of noun phrases: %s\n" % ", ".join(NPs))
             else:
                 print("(0)[NP_TRUNCATE] List of noun phrases: NULL\n")
+
             if len(NPs) != 0:
                 for aspect in NPs:
-                    aspect = aspect.lower()
-                    sentence = sentence.lower()
                     sent_rep, asp_rep = process_sent_ap(sentence, aspect)
                     print(100*"-")
                     label_prob, label_pred = self.classifier.predict(sent_rep, asp_rep, len(self.i2l))
@@ -88,7 +87,7 @@ class ABSA(object):
                             pos = self.sNLP.pos(aspect)
                             s, t = zip(*pos)
                             if "IN" in t:
-                                subap =s[:t.index("IN")]
+                                subap = " ".join(s[:t.index("IN")])
                                 if subap in self.common_aspects:
                                     print("\t(1)[SA_PREDICTION] Polarity score of aspect '%s' is %f" %
                                           (subap, label_prob.item()))
@@ -102,7 +101,7 @@ class ABSA(object):
                                     else:
                                         print("\t(1)[SA_PREDICTION] Polarity score of aspect 'UND_%s' is %f" % (
                                             aspect, label_prob.item()))
-                                        sa_info["UND"].append((date, aspect, label_prob.item(), sentence, rating))
+                                        sa_info["UND"].append((date, "UND_" + aspect, label_prob.item(), sentence, rating))
                             else:
                                 subap = aspect.split()[-1]
                                 if subap in self.common_aspects:
@@ -110,30 +109,44 @@ class ABSA(object):
                                           (subap, label_prob.item()))
                                     sa_info[subap].append((date, aspect, label_prob.item(), sentence, rating))
                                 else:
-                                    print("\t(1)[SA_PREDICTION] Polarity score of aspect 'UND_%s' is %f" % (
-                                        aspect, label_prob.item()))
-                                    sa_info["UND"].append((date, aspect, label_prob.item(), sentence, rating))
+                                    subap = aspect.split()[0]
+                                    if subap in self.common_aspects:
+                                        print("\t(1)[SA_PREDICTION] Polarity score of aspect '%s' is %f" %
+                                              (subap, label_prob.item()))
+                                        sa_info[subap].append((date, aspect, label_prob.item(), sentence, rating))
+                                    else:
+                                        print("\t(1)[SA_PREDICTION] Polarity score of aspect 'UND_%s' is %f" % (
+                                            aspect, label_prob.item()))
+                                        sa_info["UND"].append(
+                                            (date, "UND_" + aspect, label_prob.item(), sentence, rating))
 
                         else:
                             print("\t(1)[SA_PREDICTION] Polarity score of aspect 'UND_%s' is %f" % (
                                 aspect, label_prob.item()))
-                            sa_info["UND"].append((date, aspect, label_prob.item(), sentence, rating))
+                            sa_info["UND"].append((date, "UND_" + aspect, label_prob.item(), sentence, rating))
             else:
                 aspect = "NULL"
-                sentence = sentence.lower()
                 sent_rep, asp_rep = process_sent_ap(sentence, aspect)
                 print(100 * "-")
-                label_prob, label_pred = self.classifier.predict(sent_rep, sent_rep.split()[-1], len(self.i2l))
+                label_prob, label_pred = self.predict_null(sent_rep, asp_rep)
                 print("\t(1)[SA_PREDICTION] Polarity score of aspect '%s' is %f" % (aspect, label_prob.item()))
                 sa_info[aspect].append((date, aspect, label_prob.item(), sentence, rating))
         return sa_info
 
-
-def write_dict2csv(wfile, sa_info):
-    with open(wfile, "w") as f:
-        for aps in sa_info:
-            csvwriter = csv.writer(f)
-            csvwriter.writerows(sa_info[aps])
+    def predict_null(self, sent, asp):
+        wl = self.classifier.args.vocab.wl
+        ## set model in eval model
+        self.classifier.model.eval()
+        fake_label = [0]
+        words, asp_loc = self.classifier.word2idx(sent, asp)
+        word_ids, sequence_lengths = seqPAD.pad_sequences([words], pad_tok=0, wthres=wl)
+        data_tensors = Data2tensor.sort_tensors(fake_label, [asp_loc], word_ids, sequence_lengths, self.classifier.device)
+        fake_label_tensor, aspect_tensor, word_tensor, sequence_lengths, word_seq_recover = data_tensors
+        word_h_n = self.classifier.model.rnn.get_all_hiddens(word_tensor, sequence_lengths).mean(1)
+        label_score = self.classifier.model.hidden2tag(word_h_n)
+        label_score = self.classifier.model.dropfinal(label_score)
+        label_prob, label_pred = self.classifier.model.inference(label_score, len(self.i2l))
+        return label_prob, label_pred
 
 
 if __name__ == "__main__":

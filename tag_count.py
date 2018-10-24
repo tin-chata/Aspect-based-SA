@@ -5,6 +5,9 @@ Created on 2018-08-31
 from corenlpsf import count_tags, StanfordNLP
 
 if __name__ == "__main__":
+    """
+    python tag_count.py --rfile /media/data/hotels/booking_v3/processed/extracted_sent/booking.positive.set.sort.txt --wfile /media/data/hotels/booking_v3/processed/extracted_tag/tag_count_dict.positive.pkl
+    """
     import argparse
 
     argparser = argparse.ArgumentParser()
@@ -17,7 +20,7 @@ if __name__ == "__main__":
                            default="/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict.pkl",
                            type=str)
 
-    argparser.add_argument('--port', help='port number', default=8000, type=int)
+    argparser.add_argument('--port', help='port number', default=9000, type=int)
 
     args = argparser.parse_args()
 

@@ -25,7 +25,7 @@ def region_urls(first_url, region_ID="-g154913-"):
     result = requests.get(first_url)
     content = result.content
     soup = BeautifulSoup(content, "html.parser")
-    num_pages = int(soup.find_all("a", attrs={"class":"pageNum last taLnk "})[0].get_text(strip=True))
+    num_pages = int(soup.find_all("a", attrs={"class": "pageNum last taLnk "})[0].get_text(strip=True))
     list_urls = []
     for i in range(num_pages):
         bn = region_ID + "oa" + str(i * 30) + "-"

@@ -161,7 +161,7 @@ class Embs(nn.Module):
             att_out = h_n.view(batch_size,1,-1)*alpha.view(batch_size,seq_length,1)   
             return att_out
         else:
-            return  rnn_out
+            return rnn_out
     
     def random_embedding(self, size, dim):
         pre_embs = np.empty([size, dim])
@@ -178,7 +178,7 @@ class BiRNN(nn.Module):
     """
     This module take embedding inputs (characters or words) feeding to an RNN layer before adding a softmax function for classification
     """
-    def __init__(self, word_HPs=None, num_labels = None):
+    def __init__(self, word_HPs=None, num_labels=None):
         super(BiRNN, self).__init__()
         [nnmode,word_size, word_dim, wd_embeddings, word_hidden_dim, word_dropout, word_layers, word_bidirect, zero_padding, word_att] = word_HPs
         self.zero_padding = zero_padding

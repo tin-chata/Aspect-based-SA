@@ -7,19 +7,18 @@ from collections import Counter
 from sklearn.externals import joblib
 from process_data import write_csv_lines
 
-noisy_npos = [("('NNP', 'NN', '.')", (0, 1)),
+noisy_npos = [("('NNP', 'NN', '.')", 1),
               ("('DT', 'NN')", 1),
               ("('NN', '.')", 0),
               ("('DT', 'NN', '.')", 1),
-              ("('NNP', '.')", 0),
-              ("('NNP', 'NN')", (0, 1)),
+              ("('NNP', 'NN')", 1),
               ("('NN', 'NN')", (0, 1)),
               ("('DT', 'NN', 'NN', '.')", (0, 1)),
               ("('DT', 'NNS')", 1),
               ("('DT', 'NNS', '.')", 1),
               ("('DT', 'NN', 'IN', 'DT', 'NN', '.')", (1, 4)),
               ("('NN', 'NN', '.')", (0, 1)),
-              ("('NNP', 'CC', 'NN')", [0, 2]),
+              ("('NNP', 'CC', 'NN')", 2),
               ("('NN', 'IN', 'NN', '.')", (0, 2)),
               ("('DT', 'NN', 'NN')", (1, 2)),
               ("('NN', 'CC', 'NN')", [0, 2]),
@@ -44,7 +43,6 @@ noisy_anpos = [("('JJ', 'NN', '.')", (1, 0)),
                ("('JJ', 'NN')", (1, 0)),
                ("('JJ', 'NNS', '.')", (1, 0)),
                ("('JJ', 'NNS')", (1, 0)),
-               ("('NNP', 'JJ', '.')", (0, 1)),
                ("('NN', 'JJ', '.')", (0, 1))]          # 100 -->
 
 interest_anpos = [("('NN', 'VBD', 'JJ', '.')", (0, 2)),                 # nothing was ...
@@ -162,71 +160,97 @@ interest_anpos = [("('NN', 'VBD', 'JJ', '.')", (0, 2)),                 # nothin
 def location(tokens, loc):
     d = []
     if type(loc) is tuple:
-        tok = [wd for wd in tokens[loc[0]:loc[1]+1] if re.sub(r'[^0-9a-zA-Z ]+', '', wd).isalnum()]
-        # tok = [wd for wd in tokens[loc[0]:loc[1] + 1]]
+        tok = [wd for wd in tokens[loc[0]:loc[1]+1] if re.sub(r'[^0-9a-zA-Z ]+', '', wd).isalnum() and
+               len(re.sub(r'[^0-9a-zA-Z ]+', '', wd)) > 1]
         if len(tok) > 0:
             d.append(" ".join(tok))
     elif type(loc) is list:
-        tok = [tokens[l] for l in loc if re.sub(r'[^0-9a-zA-Z ]+', '', tokens[l]).isalnum()]
-        # tok = [tokens[l] for l in loc]
+        tok = [tokens[l] for l in loc if re.sub(r'[^0-9a-zA-Z ]+', '', tokens[l]).isalnum() and
+               len(re.sub(r'[^0-9a-zA-Z ]+', '', tokens[l])) > 1]
         if len(tok) > 0:
             d.extend(tok)
-    else:
-        if re.sub(r'[^0-9a-zA-Z ]+', '', tokens[loc]).isalnum():
+    elif type(loc) is int:
+        if re.sub(r'[^0-9a-zA-Z ]+', '', tokens[loc]).isalnum() and len(re.sub(r'[^0-9a-zA-Z ]+', '', tokens[loc])) > 1:
             d.append(tokens[loc])
-        # d.append(tokens[loc])
+    else:
+        pass
     return d
 
 
-def extract_jj_nn(interest_anpos, tag_dict):
+def extract_two(tag_dict, interest_tags):
     noun_dict = Counter()
     adj_dict = Counter()
-    for anpos in interest_anpos:
+    for anpos in interest_tags:
         pos, loc = anpos
         nloc, aloc = loc
         for sent in tag_dict[pos]:
             tokens = sent.lower().split()
             noun_dict.update(location(tokens, nloc))
             adj_dict.update(location(tokens, aloc))
+    return noun_dict, adj_dict
 
-    # for anpos in noisy_anpos:
-    #     pos, loc = anpos
-    #     nloc, aloc = loc
-    #     for sent in tag_dict[pos]:
-    #         tokens = sent.lower().split()
-    #         noun_dict.update(location(tokens, nloc))
-    #         adj_dict.update(location(tokens, aloc))
-    #
-    # for apos in noisy_apos:
-    #     pos, aloc = apos
-    #     for sent in tag_dict[pos]:
-    #         tokens = sent.lower().split()
-    #         adj_dict.update(location(tokens, aloc))
-    #
-    # for npos in noisy_npos:
-    #     pos, nloc = npos
-    #     for sent in tag_dict[pos]:
-    #         tokens = sent.lower().split()
-    #         noun_dict.update(location(tokens, nloc))
 
-    strip_wds = ["everything", "everythings", "nothing", "nothing everything", "thing", "things", "lot", "day", "all",
+def extract_one(tag_dict, interest_tags):
+    pos_dict = Counter()
+    for apos in interest_tags:
+        pos, loc = apos
+        for sent in tag_dict[pos]:
+            tokens = sent.lower().split()
+            pos_dict.update(location(tokens, loc))
+    return pos_dict
+
+
+fuzzy_aspects = ["everything", "everythings", "nothing", "nothing everything", "thing", "things", "lot", "day", "all",
                  "others", "anything", "evrything", "hour", "part", "fun", "mess", "else", "bit", "night", "b", "way",
                  "super", "none", "wife", "pretty", "dislike", "complaints", "complaint", "everyone", "time", "joke"]
-    strip_wds = []
-    for wd in strip_wds:
+
+
+def process_noun(noun_dict):
+    for wd in fuzzy_aspects:
         if wd in noun_dict:
             noun_dict.pop(wd)
-    write_csv_lines("/media/data/hotels/kdd11/processed/extracted_tag/tag_aspects.csv", noun_dict.most_common())
+    return noun_dict
+
+
+def extract_jj_nn(rfile):
+    tag_count, tag_dict = joblib.load(rfile)
+    noun_dict = Counter()
+    adj_dict = Counter()
+    nouns, adjs = extract_two(tag_dict, interest_anpos)
+    noun_dict.update(nouns)
+    adj_dict.update(adjs)
+
+    nouns, adjs = extract_two(tag_dict, noisy_anpos)
+    noun_dict.update(nouns)
+    adj_dict.update(adjs)
+
+    adjs = extract_one(tag_dict, noisy_apos)
+    adj_dict.update(adjs)
+
+    nouns = extract_one(tag_dict, noisy_npos)
+    noun_dict.update(nouns)
+
     return noun_dict, adj_dict
 
 
 if __name__ == "__main__":
-    # tag_file = "/media/data/hotels/booking_v2/processed/extracted_tag/tag_count_dict.pkl"
-    # tag_count, tag_dict = joblib.load(tag_file)
-    # joblib.dump(tag_count, "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
-    # joblib.dump(tag_dict, "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
-    # tag_file = "/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict.pkl"
-    # tag_count = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count.pkl")
-    # tag_dict = joblib.load("/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_dict.pkl")
-    tag_count, tag_dict = joblib.load('/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict_c5.pkl')
-    noun_dict, adj_dict = extract_jj_nn(interest_anpos, tag_dict)
+    """
+    python AP_extraction.py --rfile /media/data/hotels/kdd11/processed/extracted_tag/ --wfile /media/data/hotels/kdd11/processed/extracted_tag/tag_aspects.csv 
+    """
+    import argparse
+
+    argparser = argparse.ArgumentParser()
+
+    argparser.add_argument('--rfile', help='read file',
+                           default="/media/data/hotels/kdd11/processed/extracted_tag/kdd11_tag_count_dict_c5.pkl",
+                           type=str)
+
+    argparser.add_argument('--wfile', help='writen file',
+                           default="/media/data/hotels/kdd11/processed/extracted_tag/tag_aspects.csv",
+                           type=str)
+
+    args = argparser.parse_args()
+
+    noun_dict, adj_dict = extract_jj_nn(args.rfile)
+
+    write_csv_lines(args.wfile, noun_dict.most_common())
