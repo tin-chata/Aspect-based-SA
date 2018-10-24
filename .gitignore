@@ -2,4 +2,4 @@
 data/
 
 # ignore results folder
-results/backup
+results/backup/

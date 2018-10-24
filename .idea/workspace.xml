@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b39828-3e6e-41bb-b5da-e4d82ad86350" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/trip_extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AP_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/AP_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive.py" beforeDir="false" afterPath="$PROJECT_DIR$/interactive.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tag_count.py" beforeDir="false" afterPath="$PROJECT_DIR$/tag_count.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trip_review_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/trip_review_crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/core_nns.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/core_nns.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,24 +31,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="gitignore" value="1" />
           <entry key="py" value="202" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="202" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="7185" />
+          <entry key="gitignore" value="8" />
           <entry key="py" value="18009" />
           <entry key="txt" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="PLAIN_TEXT" value="20" />
           <entry key="Python" value="25194" />
         </counts>
       </usages-collector>
@@ -63,10 +60,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trip_extraction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
+            <state relative-caret-position="303">
               <caret line="298" column="4" selection-start-line="298" selection-start-column="4" selection-end-line="298" selection-end-column="4" />
               <folding>
                 <element signature="e#182#1164#0" />
@@ -77,11 +74,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AP_extraction.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-3441">
-              <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+              <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
               <folding>
                 <element signature="e#48#57#0" expanded="true" />
                 <marker date="1540403815581" expanded="true" signature="10093:11211" ph="..." />
@@ -152,6 +158,7 @@
         <option value="$PROJECT_DIR$/tag_count.py" />
         <option value="$PROJECT_DIR$/AP_extraction.py" />
         <option value="$PROJECT_DIR$/trip_extraction.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -352,7 +359,21 @@
       <option name="project" value="LOCAL" />
       <updated>1540233220070</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="new update">
+      <created>1540415677811</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1540415677811</updated>
+    </task>
+    <task id="LOCAL-00004" summary="new update">
+      <created>1540415792417</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1540415792417</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -372,8 +393,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32997987" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.049295776" />
-      <window_info anchor="bottom" id="Python Console" order="11" visible="true" weight="0.38430583" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.29678068" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.38430583" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -558,10 +579,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/trip_extraction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="298" column="4" selection-start-line="298" selection-start-column="4" selection-end-line="298" selection-end-column="4" />
+          <folding>
+            <element signature="e#182#1164#0" />
+            <element signature="e#1248#1599#0" />
+            <element signature="e#1634#1888#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AP_extraction.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3441">
-          <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
           <folding>
             <element signature="e#48#57#0" expanded="true" />
             <marker date="1540403815581" expanded="true" signature="10093:11211" ph="..." />
@@ -569,15 +602,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trip_extraction.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="298" column="4" selection-start-line="298" selection-start-column="4" selection-end-line="298" selection-end-column="4" />
-          <folding>
-            <element signature="e#182#1164#0" />
-            <element signature="e#1248#1599#0" />
-            <element signature="e#1634#1888#0" />
-          </folding>
+        <state relative-caret-position="92">
+          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
         </state>
       </provider>
     </entry>
